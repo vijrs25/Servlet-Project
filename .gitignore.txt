@@ -1,0 +1,12 @@
+# Java build
+/target/
+
+# IntelliJ/Eclipse
+/.idea/
+/.classpath
+/.project
+/.settings/
+
+# React/Node
+node_modules/
+build/
