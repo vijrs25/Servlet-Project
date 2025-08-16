@@ -1,14 +1,15 @@
-# Java build
+# Java / Eclipse
 /target/
 /build/
-
-# IDE specific
-/.idea/
 /.classpath
 /.project
 /.settings/
 
-# React/Node
+# React (frontend)
 /frontend/hello_servlet_frontend/node_modules/
 /frontend/hello_servlet_frontend/build/
 /frontend/hello_servlet_frontend/.env
+
+# Generic safety
+**/node_modules/
+**/build/
