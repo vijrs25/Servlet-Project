@@ -1,36 +1,41 @@
 import React, { useState } from "react";
+import StudentList from "./jdbc_Student_servlet/StudentList";
+import Login from "./jdbc_Student_servlet/Login";
+import Signup from "./jdbc_Student_servlet/signup"; // 👈 new component
 
-export default function App() {
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [age, setAge] = useState("");
-  const [output, setOutput] = useState("");
-
-  const send = async () => {
-    try {
-      const res = await fetch("http://localhost:8080/ServletWebProject/hello", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username: username,email: email, age: age}),
-      });
-      const data = await res.json();
-      setOutput(data.username+data.email+data.age);
-      setUsername("");
-      setEmail("");
-      setAge("");
-
-    } catch (e) {
-      setOutput("Error: " + e);
-    }
-  };
+function App() {
+  const [dashboard, setDashboard] = useState(null);
+  const [showSignup, setShowSignup] = useState(false);
 
   return (
     <div>
-      <input value={username} onChange={(e) => setUsername(e.target.value)} placeholder="user" />
-      <input value={email} onChange={(e) => setEmail(e.target.value)} placeholder="email" />
-      <input value={age} onChange={(e) => setAge(e.target.value)} placeholder="age" />
-      <button type="button" onClick={send}>Send</button> {/* <- type="button" */}
-      <div><b>Server response:</b> {output}</div>
+      <h1>🎓 Student Management Portal</h1>
+
+      {!dashboard ? (
+        <>
+          {showSignup ? (
+            <Signup onSignupSuccess={() => setShowSignup(false)} />
+          ) : (
+            <Login onLoginSuccess={setDashboard} />
+          )}
+
+          <button
+            style={{ marginTop: "10px" }}
+            onClick={() => setShowSignup(!showSignup)}
+          >
+            {showSignup
+              ? "Already have an account? Login"
+              : "New user? Signup here"}
+          </button>
+        </>
+      ) : (
+        <>
+          <p>✅ Welcome {dashboard.lastUser}</p>
+          <StudentList /> {/* Show student list only after login */}
+        </>
+      )}
     </div>
   );
 }
+
+export default App;
