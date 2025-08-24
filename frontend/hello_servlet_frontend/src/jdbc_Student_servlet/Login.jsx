@@ -24,8 +24,14 @@ function Login({ onLoginSuccess }) {
   };
 
   return (
-    <div>
-      <h2>Student Login</h2>
+    <div     >
+      <h2>Login</h2>
+      <select name="logintype" id="logintype" >
+        <option value="student" selected>Student</option>
+        <option value="teacher" >Teacher</option>
+        <option value="admin" >Admin</option>
+      </select>
+      
       <input
         placeholder="User ID"
         value={username}
